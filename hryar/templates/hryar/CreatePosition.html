@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>hryarApp - Create A Position With Django</title>
+  {% load static %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" type="text/css" href="{% static 'hryar/style.css' %}">
+</head>
+<body>
+<form action="" method="post">
+    {% csrf_token %} <!-- csrf token for basic security -->
+    <div class="container">
+        <div class="content">
+            <p class="tagline">Job app</p>
+            <div class="inputContainer">
+                <input type="text" id="position_name" placeholder="What is the name of position" name="name" required>
+                <label for="position_name">Name</label>
+            </div>
+            <div class="inputContainer">
+                <input type="text" id="position_salary" placeholder="What is the salary of position" name="salary" required>
+                <label for="position_salary">Salary</label>
+            </div>
+            <div class="inputContainer">
+                <input type="text" id="position_job_description" placeholder="What is the job_description of position" name="job_description" required>
+                <label for="position_job_description">Description</label>
+            </div>
+            <div class="inputContainer">
+                <input type="text" id="position_requirements" placeholder="What is the requirements of position" name="requirements" required>
+                <label for="position_requirements">Requirements</label>
+            </div>
+            <div class="inputContainer">
+                <input type="text" id="position_rewards" placeholder="What is the rewards of position" name="rewards">
+                <label for="position_rewards">Rewards</label>
+            </div>
+            <div class="inputContainer">
+               <input type="checkbox" id="position_archived" name="archived" checked="checked">
+                <label for="position_archived">Archived</label>
+            </div>
+            <!--<input type="checkbox" id="position_archived" name="position_archived">-->
+            <!--<label for="position_archived"> Archived</label><br>-->
+            <div class="inputContainer half last">
+                <i class="fa fa-caret-down selectArrow"></i>
+                <select id="position_company" name="company">
+                <option class="disabled" value="">Choose a company</option>
+                {% for company in companies %}
+                    <option class="" value="{{ company.name }}" name="{{ company.name }}">{{ company.name }}</option>
+                {% endfor %}
+                </select>
+                <label for="position_company">Company</label>
+            </div>
+            <div class="row">
+                <button class="taskAdd" name="jobAdd" type="submit"><i class="fa fa-plus icon"></i>Add Job</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
