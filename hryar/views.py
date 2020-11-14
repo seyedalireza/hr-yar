@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.template import loader
 
 from hryar.models import Position, Company
 from django.views import generic
