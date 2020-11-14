@@ -20,7 +20,8 @@ import hryar.views as views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url('confirm/signup/', views.signup),
-    url('confirm/login/', views.login),
+    url('company/signup/', views.company_signup),
+    url('user/signup/', views.person_signup),
+    url('login/', views.login_api),
     url(r'^careers/job/\d+$', views.apply_job)
 ]
