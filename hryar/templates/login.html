@@ -33,8 +33,7 @@
       margin: 10px 0;
       border: none;
       cursor: grabbing;
-      width: 48%;
-          align-self: center;
+      width: 100%;
       }
       h1 {
       text-align:center;
@@ -43,19 +42,9 @@
       button:hover {
       opacity: 0.8;
       }
-      .error {
-          align-self: center;
-          color: darkred;
-          font-style: oblique;
-          font-weight: bold;
-          margin: 10px;
-          opacity: 0;
-      }
       .formcontainer {
       text-align: left;
       margin: 24px 50px 12px;
-      display: flex;
-      flex-direction: column;
       }
       .container {
       padding: 16px 0;
@@ -76,52 +65,25 @@
     </style>
   </head>
   <body>
-    <form>
+    <form action="/login/" method="post">
+    {% csrf_token %}
       <h1>Login Form</h1>
       <div class="formcontainer">
       <hr/>
       <div class="container">
-        <label for="email"><strong>Email</strong></label>
-        <input type="text" placeholder="Enter Email" id="email" required>
-        <label for="psw"><strong>Password</strong></label>
-        <input type="password" placeholder="Enter Password" id="psw" required>
+        <label for="username"><strong>Email</strong></label>
+        <input type="text" placeholder="Enter Email" name="username" required>
+        <label for="password"><strong>Password</strong></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
       </div>
-      <button id="login_button">Login</button>
-          <span id="errortext" class="error"></span>
+      <button type="submit">Login</button>
     <div class="tab_bottom" style="background-color: #eee">
-        <span class="psw"><a href="http://localhost:8000/confirm/signup">Don't Have account? Signup</a></span>
+{#        <label style="padding-left: 15px">#}
+{#        <input type="checkbox"  checked="checked" name="remember"> Employee?#}
+{#        </label>#}
+        <span class="psw"><a href="#">Don't Have account? Signup</a></span>
       </div>
       </div>
     </form>
   </body>
-     <script>
-         const button = document.getElementById('login_button')
-         button.onclick = function (e) {
-             e.preventDefault()
-             console.log("whats up")
-             const mail = document.getElementById('email').value
-             const psw = document.getElementById('psw').value
-             const error = document.getElementById('errortext')
-             const data = new FormData()
-             error.style.opacity = 0
-             data.append('mail', mail)
-             data.append('psw', psw)
-             fetch('http://localhost:4000', {
-                 method: 'POST',
-                 headers: {
-                     'content-type': 'multipart/formdata'
-                 },
-                 body: data
-             }).then(res => {
-                 console(res.json())
-                 error.style.opacity = 1
-                 error.textContent = "Well Done!"
-             }).catch(err => {
-                 console('Errror: ', err)
-                 error.style.opacity = 1
-                 error.textContent = err.toString()
-             })
-         }
-     </script>
-
 </html>
