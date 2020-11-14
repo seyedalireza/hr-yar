@@ -17,6 +17,7 @@ class Company(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone_number = models.CharField(max_length=11)
+    website = models.CharField(max_length=100)
     description = models.TextField()
     size = models.CharField(choices=company_size_groups, max_length=20)
 
@@ -51,4 +52,3 @@ class Applyment(models.Model):
     applicant = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
     apply_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
-

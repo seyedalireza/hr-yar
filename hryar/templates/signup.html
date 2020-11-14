@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <title>Simple Sign up from</title>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <style>
+      html, body {
+      display: flex;
+      justify-content: center;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 15px;
+      }
+      form {
+      border: 5px solid #f1f1f1;
+          width: 60%;
+      }
+      input[type=text], input[type=password] {
+      width: 100%;
+      padding: 16px 8px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      }
+      button {
+      background-color: #4286f4;
+      color: white;
+      padding: 14px 0;
+      margin: 10px 0;
+      border: none;
+      cursor: grab;
+      width: 48%;
+      }
+      h1 {
+      text-align:center;
+      fone-size:18;
+      }
+      button:hover {
+      opacity: 0.8;
+      }
+      .formcontainer {
+      text-align: center;
+      margin: 24px 50px 12px;
+      align-content: center;
+      }
+      .container {
+      padding: 16px 0;
+      text-align:left;
+
+      }
+      .tab_bottom {
+          padding: 15px;
+          display: flex;
+          flex-direction: row-reverse;
+      }
+      span.psw {
+      padding-top: 0;
+      text-align: right;
+      }
+      /* Change styles for span on extra small screens */
+      @media screen and (max-width: 300px) {
+          span.psw {
+              display: block;
+              float: none;
+          }
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <h1>SIGN UP</h1>
+      <div class="formcontainer">
+      <div class="container">
+        <label for="uname"><strong>Username</strong></label>
+        <input type="text" placeholder="Enter Username" id="uname" required>
+        <label for="mail"><strong>E-mail</strong></label>
+        <input type="text" placeholder="Enter E-mail" id="mail" required>
+        <label for="psw"><strong>Password</strong></label>
+        <input type="password" placeholder="Enter Password" id="psw" required>
+        <label for="psw"><strong>Confirm Password</strong></label>
+        <input type="password" placeholder="Enter Password" id="cpsw" required>
+      </div>
+      <button id="signup_button"><strong>SIGN UP</strong></button>
+      <div class="tab_bottom" style="background-color: #eee">
+{#        <label style="padding-left: 15px">#}
+{#        <input type="checkbox"  checked="checked" name="remember"> Employee?#}
+{#        </label>#}
+        <span class="psw"><a href="#">Have account? Login</a></span>
+      </div>
+      </div>
+    </form>
+  </body>
+     <script>
+         const button = document.getElementById('signup_button')
+         button.onclick = function (e) {
+             e.preventDefault()
+             console.log("whats up")
+             const uname = document.getElementById('uname').value
+             const mail = document.getElementById('mail').value
+             const psw = document.getElementById('psw').value
+             const cpsw = document.getElementById('cpsw').value
+             const data = new FormData()
+             data.append('uname', uname)
+             data.append('mail', mail)
+             data.append('psw', psw)
+             data.append('cpsw', cpsw)
+             fetch('http://localhost:4000', {
+                 method: 'POST',
+                 headers: {
+                     'content-type': 'multipart/formdata'
+                 },
+                 body: data
+             }).then(res => {
+                 console(res.json())
+             }).catch(err => {
+                 console('Errror: ', err)
+             })
+         }
+     </script>
+</html>
