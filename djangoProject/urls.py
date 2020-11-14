@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url
+import hryar.views as views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url('confirm/signup/', views.signup),
+    url('confirm/login/', views.login),
+    url(r'^careers/job/\d+$', views.apply_job)
 ]
