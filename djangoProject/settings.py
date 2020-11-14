@@ -124,3 +124,6 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
+
+USER_GROUP = 'user'
+COMPANY_GROUP = 'company'

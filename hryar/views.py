@@ -1,7 +1,11 @@
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render
+from django.contrib.auth.models import Group
+from django.http import HttpResponseForbidden, HttpResponseNotFound
+from django.shortcuts import render, redirect
+from samba.dcerpc.nbt import name
 
-from hryar.models import CompanyModelForm, PersonModelForm
+from djangoProject.settings import USER_GROUP, COMPANY_GROUP
+from hryar.models import CompanyModelForm, PersonModelForm, PositionForm, Company
 
 
 def company_signup(request):
@@ -12,7 +16,12 @@ def company_signup(request):
     else:
         form = CompanyModelForm(request.POST)
         if form.is_valid():
-            form.save()
+            company_group, _ = Group.objects.get_or_create(name=COMPANY_GROUP)
+            company_group.save()
+            user = form.save(commit=False)
+            user.save()
+            user.groups.add(company_group)
+            user.save()
             return render(request, 'login.html')
         else:
             return render(request, 'common_form_template.html', {'form': form, 'url': url})
@@ -26,7 +35,12 @@ def person_signup(request):
     else:
         form = PersonModelForm(request.POST)
         if form.is_valid():
-            form.save()
+            user_group, _ = Group.objects.get_or_create(name=USER_GROUP)
+            user_group.save()
+            user = form.save(commit=False)
+            user.save()
+            user.groups.add(user_group)
+            user.save()
             return render(request, 'login.html')
         else:
             return render(request, 'common_form_template.html', {'form': form, 'url': url})
@@ -47,3 +61,22 @@ def login_api(request):
 
 def apply_job(request):
     return render(request, 'apply_job.html')
+
+
+def create_position(request):
+    url = "/company/position/"
+    if request.method == 'GET':
+        position_form = PositionForm()
+        return render(request, 'common_form_template.html', {'form': position_form, 'url': url})
+    elif request.method == 'POST':
+        if request.user.is_authenticated and request.user.groups.filter(name=COMPANY_GROUP).exists():
+            position_form = PositionForm(request.POST)
+            position = position_form.save(commit=False)
+            position.company = Company.objects.get(username=request.user.username)
+            position.save()
+            return redirect("/")
+        else:
+            return HttpResponseForbidden()
+    else:
+        return HttpResponseNotFound()
+

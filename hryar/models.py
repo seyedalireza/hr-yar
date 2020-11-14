@@ -62,3 +62,10 @@ class PersonModelForm(ModelForm):
         model = Person
         fields = '__all__'
         exclude = ['is_staff', 'is_active', 'date_joined', 'last_login', 'is_superuser', 'groups', 'user_permissions']
+
+
+class PositionForm(ModelForm):
+    class Meta:
+        model = Position
+        fields = '__all__'
+        exclude = ['id', 'company']
