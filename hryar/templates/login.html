@@ -65,15 +65,16 @@
     </style>
   </head>
   <body>
-    <form action="/action_page.php">
+    <form action="/login/" method="post">
+    {% csrf_token %}
       <h1>Login Form</h1>
       <div class="formcontainer">
       <hr/>
       <div class="container">
-        <label for="email"><strong>Email</strong></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
-        <label for="psw"><strong>Password</strong></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
+        <label for="username"><strong>Email</strong></label>
+        <input type="text" placeholder="Enter Email" name="username" required>
+        <label for="password"><strong>Password</strong></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
       </div>
       <button type="submit">Login</button>
     <div class="tab_bottom" style="background-color: #eee">

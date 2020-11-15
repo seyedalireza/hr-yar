@@ -83,10 +83,7 @@
       </div>
       <button id="signup_button"><strong>SIGN UP</strong></button>
       <div class="tab_bottom" style="background-color: #eee">
-{#        <label style="padding-left: 15px">#}
-{#        <input type="checkbox"  checked="checked" name="remember"> Employee?#}
-{#        </label>#}
-        <span class="psw"><a href="#">Have account? Login</a></span>
+        <span class="psw"><a href="http://localhost:8000/confirm/login">Have account? Login</a></span>
       </div>
       </div>
     </form>
@@ -105,7 +102,7 @@
              data.append('mail', mail)
              data.append('psw', psw)
              data.append('cpsw', cpsw)
-             fetch('http://localhost:4000', {
+             fetch('http://localhost:8000/api/register', {
                  method: 'POST',
                  headers: {
                      'content-type': 'multipart/formdata'
