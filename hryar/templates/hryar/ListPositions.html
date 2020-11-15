@@ -1,0 +1,9 @@
+{% if latest_position_list %}
+    <ul>
+    {% for position in latest_position_list %}
+        <li><a href="/hryar/{{ position.id }}/">{{ position.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No jobs are available.</p>
+{% endif %}

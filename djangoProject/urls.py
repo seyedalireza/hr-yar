@@ -14,15 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls import url
 import hryar.views as views
 
 urlpatterns = [
+    path('hryar/', include('hryar.urls')),
     path('admin/', admin.site.urls),
     url('company/signup/', views.company_signup),
     url('user/signup/', views.person_signup),
     url('login/', views.login_api),
-    url('company/position/', views.create_position),
+    # url('company/position/', views.create_position),
     url(r'^careers/job/\d+$', views.apply_job)
 ]

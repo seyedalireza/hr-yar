@@ -1,11 +1,13 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import Group
-from django.http import HttpResponseForbidden, HttpResponseNotFound
+from django.http import HttpResponseForbidden, HttpResponseNotFound, HttpResponse
 from django.shortcuts import render, redirect
-from samba.dcerpc.nbt import name
+# from samba.dcerpc.nbt import name
+from django.template import loader
+from django.views import generic
 
 from djangoProject.settings import USER_GROUP, COMPANY_GROUP
-from hryar.models import CompanyModelForm, PersonModelForm, PositionForm, Company
+from hryar.models import CompanyModelForm, PersonModelForm, PositionForm, Company, Position
 
 
 def company_signup(request):
@@ -55,7 +57,7 @@ def login_api(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request=request, user=user)
-            return render(request, 'home.html') # TODO redirect to home
+            return render(request, 'home.html')  # TODO redirect to home
         return render(request, 'login.html')
 
 
@@ -64,10 +66,10 @@ def apply_job(request):
 
 
 def create_position(request):
-    url = "/company/position/"
+    # url = "/company/position/"
     if request.method == 'GET':
         position_form = PositionForm()
-        return render(request, 'common_form_template.html', {'form': position_form, 'url': url})
+        return render(request, 'hryar/CreatePosition.html', {'form': position_form})
     elif request.method == 'POST':
         if request.user.is_authenticated and request.user.groups.filter(name=COMPANY_GROUP).exists():
             position_form = PositionForm(request.POST)
@@ -80,3 +82,15 @@ def create_position(request):
     else:
         return HttpResponseNotFound()
 
+
+def ListPositions(request):
+    latest_position_list = Position.objects.order_by('-create_date')
+    template = loader.get_template('hryar/ListPositions.html')
+    context = {
+        'latest_position_list': latest_position_list,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def Detail(request, position_id):
+    return HttpResponse("You're looking at position %s." % position_id)
