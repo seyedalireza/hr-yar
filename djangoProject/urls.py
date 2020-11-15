@@ -24,6 +24,6 @@ urlpatterns = [
     url('company/signup/', views.company_signup),
     url('user/signup/', views.person_signup),
     url('login/', views.login_api),
-    url('company/position/', views.create_position),
+    # url('company/position/', views.create_position),
     url(r'^careers/job/\d+$', views.apply_job)
 ]
