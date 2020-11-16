@@ -168,6 +168,84 @@ button {
 .taskDelete:hover {
     background: #c0392b;
 }
+/* task styles */
+.taskList {
+    list-style: none;
+    padding: 0 20px;
+}
+.taskItem {
+    border-top: 1px solid #e5e5e5;
+    padding: 15px 0;
+    color: #777;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+.taskList .taskItem:nth-child(even) {
+    background: #fcfcfc;
+}
+.taskCheckbox {
+    margin-right: 1em;
+}
+.complete-true {
+    text-decoration:  line-through;
+    color: #bebebe;
+}
+.taskList .taskDate {
+    color: #95a5a6;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: block;
+    margin-left: 41px;
+}
+.fa-calendar {
+    margin-right: 10px;
+    font-size: 16px;
+}
+[class*='category-'] {
+    display: inline-block;
+    font-size: 10px;
+    background: #444;
+    vertical-align: middle;
+    color: #fff;
+    padding: 10px;
+    width: 75px;
+    text-align: center;
+    border-radius: 2px;
+    float: right;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin-right: 20px;
+}
+.category- {
+    background: transparent;
+}
+.category-Personal {
+    background: #2980b9;
+}
+.category-Work {
+    background: #8e44ad;
+}
+.category-School {
+    background: #f39c12;
+}
+.category-Cleaning {
+    background: #16a085;
+}
+.category-Other {
+    background: #d35400;
+}
+footer {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #777;
+}
+footer a {
+    color: #f39c12;
+}
 /* custom checkboxes */
 .taskCheckbox {
     -webkit-appearance: none;
