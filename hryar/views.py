@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 
 from djangoProject.settings import USER_GROUP, COMPANY_GROUP
-from hryar.models import CompanyModelForm, PersonModelForm, PositionForm, Company, Position
+from hryar.models import CompanyModelForm, PersonModelForm, PositionForm, Company, Position, Person, Applyment
 
 
 def company_signup(request):
@@ -115,4 +115,21 @@ def ListPositions(request):
 
 
 def Detail(request, position_id):
+    # TODO if user was company show requests
     return HttpResponse("You're looking at position %s." % position_id)
+
+
+# TODO: in home page if user was company show his open positions
+
+def apply(request, position_id):
+    if request.user.is_authenticated and request.user.groups.filter(name=USER_GROUP).exists():
+        try:
+            position = Position.objects.get(id=position_id)
+            person = Person.objects.get(user__username=request.user.username)
+            req = Applyment(status="i", applicant=person, position=position)
+            req.save()
+            return HttpResponse("request sent successfully.")
+        except:
+            return HttpResponseNotFound("Job not found.")
+    else:
+        return HttpResponseForbidden()
