@@ -1,10 +1,8 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.http import HttpResponseForbidden, HttpResponseNotFound, HttpResponse
 from django.shortcuts import render, redirect
-# from samba.dcerpc.nbt import name
 from django.template import loader
-from django.views import generic
 
 from djangoProject.settings import USER_GROUP, COMPANY_GROUP
 from hryar.models import CompanyModelForm, PersonModelForm, PositionForm, Company, Position
@@ -20,10 +18,17 @@ def company_signup(request):
         if form.is_valid():
             company_group, _ = Group.objects.get_or_create(name=COMPANY_GROUP)
             company_group.save()
-            user = form.save(commit=False)
+            username = form.data["username"]
+            password = form.data["password"]
+            email = form.data["email"]
+            user = User(username=username, email=email)
+            user.set_password(password)
             user.save()
             user.groups.add(company_group)
             user.save()
+            company = form.save(commit=False)
+            company.user = user
+            company.save()
             return render(request, 'login.html')
         else:
             return render(request, 'common_form_template.html', {'form': form, 'url': url})
@@ -39,10 +44,17 @@ def person_signup(request):
         if form.is_valid():
             user_group, _ = Group.objects.get_or_create(name=USER_GROUP)
             user_group.save()
-            user = form.save(commit=False)
+            username = form.data["username"]
+            password = form.data["password"]
+            email = form.data["email"]
+            user = User(username=username, email=email)
+            user.set_password(password)
             user.save()
             user.groups.add(user_group)
             user.save()
+            person = form.save(commit=False)
+            person.user = user
+            person.save()
             return render(request, 'login.html')
         else:
             return render(request, 'common_form_template.html', {'form': form, 'url': url})
@@ -74,7 +86,7 @@ def create_position(request):
         if request.user.is_authenticated and request.user.groups.filter(name=COMPANY_GROUP).exists():
             position_form = PositionForm(request.POST)
             position = position_form.save(commit=False)
-            position.company = Company.objects.get(username=request.user.username)
+            position.company = Company.objects.get(user__username=request.user.username)
             position.save()
             return redirect("/")
         else:

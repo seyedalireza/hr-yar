@@ -117,13 +117,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-
-# Rest framework
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-}
-
 USER_GROUP = 'user'
 COMPANY_GROUP = 'company'
+#Authentication backends
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
