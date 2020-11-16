@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ title }}</title>
 </head>
 <style>
     body {
@@ -87,6 +87,12 @@
         font-weight: bold;
         color: white;
     }
+
+    .cv_field {
+        display: flex;
+        flex-direction: column;
+    }
+
     .form_link {
         color: #b8f2ff;
         font-size: 12px;
@@ -101,11 +107,16 @@
         cursor: pointer;
     }
 </style>
+
 <body>
 <form action="{{ url }}" method="post">
     {% csrf_token %}
             <span class="form_title">{{ title }}</span>
     {{ form }}
+    <div class="cv_field">
+    <label>Upload CV:</label>
+    <input type="file" name="file" accept="file/*" required>
+        </div>
     <a class="form_link" href={{hl_link}}>{{ hl_text }}</a>
     <input class="submit_button" type="submit" value="Submit">
 </form>
