@@ -10,9 +10,13 @@ from hryar.models import CompanyModelForm, PersonModelForm, PositionForm, Compan
 
 def company_signup(request):
     url = "/company/signup/"
+    title = 'Signup (Company)'
+    hl_text = "already have an account? login"
+    hl_link = "http://localhost:8000/login"
     if request.method == 'GET':
         form = CompanyModelForm()
-        return render(request, 'common_form_template.html', {'form': form, 'url': url})
+        return render(request, 'common_form_template.html', {'form': form, 'url': url, 'title': title,
+                                                             'hl_link': hl_link, 'hl_text': hl_text})
     else:
         form = CompanyModelForm(request.POST)
         if form.is_valid():
@@ -31,14 +35,19 @@ def company_signup(request):
             company.save()
             return render(request, 'login.html')
         else:
-            return render(request, 'common_form_template.html', {'form': form, 'url': url})
+            return render(request, 'common_form_template.html', {'form': form, 'url': url, 'title': title,
+                                                                 'hl_link': hl_link, 'hl_text': hl_text})
 
 
 def person_signup(request):
     url = "/user/signup/"
+    title = "Signup (User)"
+    hl_text = "already have an account? login"
+    hl_link = "http://localhost:8000/login"
     if request.method == 'GET':
         form = PersonModelForm()
-        return render(request, 'common_form_template.html', {'form': form, 'url': url})
+        return render(request, 'common_form_template.html', {'form': form, 'url': url, 'title': title,
+                                                             'hl_text': hl_text, 'hl_link': hl_link})
     else:
         form = PersonModelForm(request.POST)
         if form.is_valid():
@@ -57,7 +66,8 @@ def person_signup(request):
             person.save()
             return render(request, 'login.html')
         else:
-            return render(request, 'common_form_template.html', {'form': form, 'url': url})
+            return render(request, 'common_form_template.html', {'form': form, 'url': url,
+                                                                 'hl_link': hl_link, 'hl_text': hl_text})
 
 
 def login_api(request):
