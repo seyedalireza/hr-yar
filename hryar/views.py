@@ -69,6 +69,8 @@ def person_signup(request):
             return render(request, 'common_form_template.html', {'form': form, 'url': url,
                                                                  'hl_link': hl_link, 'hl_text': hl_text})
 
+def home(request):
+    return render(request, 'home.html')
 
 def login_api(request):
     if request.method == 'GET':
@@ -81,10 +83,6 @@ def login_api(request):
             login(request=request, user=user)
             return render(request, 'home.html')  # TODO redirect to home
         return render(request, 'login.html')
-
-
-def apply_job(request):
-    return render(request, 'apply_job.html')
 
 
 def create_position(request):
