@@ -24,6 +24,9 @@ class Company(models.Model):
     description = models.TextField()
     size = models.CharField(choices=company_size_groups, max_length=20)
 
+    def __str__(self):
+        return 'Company: ' + self.name
+
 
 class Person(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -32,6 +35,9 @@ class Person(models.Model):
     resume = models.BinaryField()  # handle pdf files. or use a storage for it.
     phone_number = models.CharField(max_length=11)
     expected_salary = models.CharField(max_length=128)
+
+    def __str__(self):
+        return 'Person: ' + self.user.username
 
 
 class Position(models.Model):
@@ -45,6 +51,9 @@ class Position(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     archived = models.BooleanField(default=False)
 
+    def __str__(self):
+        return 'Position: ' + self.name
+
 
 class Applyment(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -53,6 +62,10 @@ class Applyment(models.Model):
     applicant = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
     apply_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return 'Applyment: user: ' + self.applicant.user.username + ", " + \
+               "position" + self.position.name
 
 
 class CompanyModelForm(ModelForm):
