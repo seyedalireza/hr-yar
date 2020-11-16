@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Position Detail</title>
+</head>
+<body>
+    {% if position %}
+        <ul class="taskList">
+            <li class="taskItem">
+                <a>{{ position.name }}</a>
+            </li>
+            <li class="taskItem">
+                <a>{{ position.job_description }}</a>
+            </li>
+            <li class="taskItem">
+                <a>{{ position.requirements }}</a>
+            </li>
+            <li class="taskItem">
+                <a>{{ position.salary }}</a>
+            </li>
+            <li class="taskItem">
+                <a>{{ position.create_date }}</a>
+            </li>
+        </ul>
+        {% if user_group == "user" %}
+            <div class="row">
+                <button class="taskAdd" name="Apply" type="submit"><i class="fa fa-plus icon"></i>Apply</button>
+            </div>
+        {% else %}
+            <p>Can't Apply</p>
+        {% endif %}
+    {% else %}
+        <p>No jobs are available.</p>
+    {% endif %}
+</body>
+</html>

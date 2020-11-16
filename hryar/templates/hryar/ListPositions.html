@@ -1,9 +1,24 @@
-{% if latest_position_list %}
-    <ul>
-    {% for position in latest_position_list %}
-        <li><a href="/hryar/{{ position.id }}/">{{ position.name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No jobs are available.</p>
-{% endif %}
+
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>hryarApp - List Positions With Django</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'hryar/style.css' %}">
+</head>
+<body>
+    {% if positions %}
+        <ul class="taskList">
+        {% for position in positions %}
+            <li class="taskItem">
+                <a href="/hryar/company/positions/{{ position.id }}/">{{ position.name }}: {{position.job_description}} </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No jobs are available.</p>
+    {% endif %}
+</body>
+</html>

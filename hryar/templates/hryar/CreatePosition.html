@@ -34,22 +34,22 @@
                 <input type="text" id="position_rewards" placeholder="What is the rewards of position" name="rewards">
                 <label for="position_rewards">Rewards</label>
             </div>
-            <div class="inputContainer">
-               <input type="checkbox" id="position_archived" name="archived" checked="checked">
-                <label for="position_archived">Archived</label>
-            </div>
+            <!--<div class="inputContainer">-->
+               <!--<input type="checkbox" id="position_archived" name="archived" checked="checked">-->
+                <!--<label for="position_archived">Archived</label>-->
+            <!--</div>-->
             <!--<input type="checkbox" id="position_archived" name="position_archived">-->
             <!--<label for="position_archived"> Archived</label><br>-->
-            <div class="inputContainer half last">
-                <i class="fa fa-caret-down selectArrow"></i>
-                <select id="position_company" name="company">
-                <option class="disabled" value="">Choose a company</option>
-                {% for company in companies %}
-                    <option class="" value="{{ company.name }}" name="{{ company.name }}">{{ company.name }}</option>
-                {% endfor %}
-                </select>
-                <label for="position_company">Company</label>
-            </div>
+            <!--<div class="inputContainer half last">-->
+                <!--<i class="fa fa-caret-down selectArrow"></i>-->
+                <!--<select id="position_company" name="company">-->
+                <!--<option class="disabled" value="">Choose a company</option>-->
+                <!--{% for company in companies %}-->
+                    <!--<option class="" value="{{ company.name }}" name="{{ company.name }}">{{ company.name }}</option>-->
+                <!--{% endfor %}-->
+                <!--</select>-->
+                <!--<label for="position_company">Company</label>-->
+            <!--</div>-->
             <div class="row">
                 <button class="taskAdd" name="jobAdd" type="submit"><i class="fa fa-plus icon"></i>Add Job</button>
             </div>

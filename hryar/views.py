@@ -90,15 +90,16 @@ def apply_job(request):
 def create_position(request):
     # url = "/company/position/"
     if request.method == 'GET':
-        position_form = PositionForm()
-        return render(request, 'hryar/CreatePosition.html', {'form': position_form})
+        positons = Position.objects.all()
+        companies = Company.objects.all()
+        return render(request, 'hryar/CreatePosition.html', {"positions": positons, "companies": companies})
     elif request.method == 'POST':
         if request.user.is_authenticated and request.user.groups.filter(name=COMPANY_GROUP).exists():
             position_form = PositionForm(request.POST)
             position = position_form.save(commit=False)
             position.company = Company.objects.get(user__username=request.user.username)
             position.save()
-            return redirect("/")
+            return render(request, 'hryar/ListPositions.html')
         else:
             return HttpResponseForbidden()
     else:
@@ -106,17 +107,17 @@ def create_position(request):
 
 
 def ListPositions(request):
-    latest_position_list = Position.objects.order_by('-create_date')
-    template = loader.get_template('hryar/ListPositions.html')
-    context = {
-        'latest_position_list': latest_position_list,
-    }
-    return HttpResponse(template.render(context, request))
+    if request.method == 'GET':
+        positons = Position.objects.order_by('create_date')
+        print(positons)
+        return render(request, 'hryar/ListPositions.html', {"positions": positons})
 
 
 def Detail(request, position_id):
     # TODO if user was company show requests
-    return HttpResponse("You're looking at position %s." % position_id)
+    user_group = ''
+    position = Position.objects.get(id=position_id)
+    return render(request, 'hryar/PositionDetail.html', {"position": position, "user_group": user_group})
 
 
 # TODO: in home page if user was company show his open positions
