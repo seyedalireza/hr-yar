@@ -25,7 +25,9 @@
         </ul>
         {% if user_group == "user" %}
             <div class="row">
+            <form action="./apply" method="get">
                 <button class="taskAdd" name="Apply" type="submit"><i class="fa fa-plus icon"></i>Apply</button>
+            </form>
             </div>
         {% else %}
             <p>Can't Apply</p>

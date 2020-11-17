@@ -24,6 +24,7 @@ urlpatterns = [
     url('company/signup/', views.company_signup),
     url('user/signup/', views.person_signup),
     url('login/', views.login_api),
-    url('home/', views.home)
+    url('home/', views.home),
+    url('', views.home)
     # url('company/position/', views.create_position),
 ]

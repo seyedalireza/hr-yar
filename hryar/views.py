@@ -113,7 +113,7 @@ def ListPositions(request):
 
 def Detail(request, position_id):
     # TODO if user was company show requests
-    user_group = ''
+    user_group = "user"
     position = Position.objects.get(id=position_id)
     return render(request, 'hryar/PositionDetail.html', {"position": position, "user_group": user_group})
 
